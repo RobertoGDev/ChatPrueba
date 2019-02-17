@@ -12,30 +12,50 @@
     <title>Chat</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 
 <body>
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <h1>Bienvenido al chat de Rober!</h1>
-    <div id="selectId">
-        <form id="form_getId">
-            <label for="selectIdInput"> Primero seleccione su nombre de usuario
-                <input id="idUserCustom" type="text" placeholder="Nombre de usuario">
-            </label>
-        </form>
+    <div class="container">
+        <h1>Wellcome to PikiChat!</h1>
+        <div class="row" id="selectId">
+            <form id="form_getId">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">accessible_forward</i>
+                    <input placeholder="Nombre de usuario" id="idUserCustom" type="text" class="validate">
+                    <label for="idUserCustom">Primero seleccione su nombre de usuario</label>
+                    <button class="btn waves-effect waves-light btn-small disabled" type="submit" name="action">Entrar!
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="row" id="chat" style="display: none">
+            <div id="info" class="col s12"></div>
+            <div id="messagepanel" style="height: 200px; max-height: 400px; overflow-y: auto" class="col s12 card-panel red lighten-5"></div>
+            <div class="col s12">
+                <form id="form_msg">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="message" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div id="chat" style="display: none">
-        <div id="info"></div>
-        <div id="messagepanel"></div>
-        <form id="form_msg">
-            <input id="message" type="text" placeholder="Texto aquí">
-        </form>
-    </div>
+
     <script src="./app.js" async defer></script>
-    
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>

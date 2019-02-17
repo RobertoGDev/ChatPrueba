@@ -1,17 +1,38 @@
 // let usergenerated = randomUser();
 let usergenerated = "";
-socket = []; 
+let coloruser = "";
+socket = [];
 
 const selectId = document.getElementById('selectId');
 const formID = document.getElementById('form_getId');
 const inputID = document.getElementById('idUserCustom');
-
+const buttonUser = document.querySelector('#form_getId .btn');
 
 const chat = document.getElementById('chat');
 const infopanel = document.getElementById('info');
 const panel = document.getElementById('messagepanel');
 const inputMessage = document.getElementById('message');
 const formChat = document.getElementById('form_msg');
+
+
+inputID.addEventListener('change', function () {
+    console.log(typeof this.value);
+    if (this.value == '') {
+        buttonUser.classList.add('disabled');
+    } else {
+        buttonUser.classList.remove('disabled');
+    }
+})
+
+function randomColor() {
+    let combo = '';
+    let chars = "1234567890";
+    for (let i = 6; i--;) {
+        combo += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    let color = '#' + combo;
+    return color;
+}
 
 
 function openSockets() {
@@ -26,6 +47,9 @@ function getdateformat() {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!
+    let hh = today.getHours();
+    let mn = today.getMinutes();
+    let ml = today.getSeconds();
 
     let yyyy = today.getFullYear();
     if (dd < 10) {
@@ -34,7 +58,18 @@ function getdateformat() {
     if (mm < 10) {
         mm = '0' + mm;
     }
-    today = dd + '/' + mm + '/' + yyyy;
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+    if (mn < 10) {
+        mn = '0' + mn;
+    }
+    if (ml < 10) {
+        ml = '0' + ml;
+    }
+    today = dd + '/' + mm + '/' + yyyy + ' ' + hh + ':' + mn + ':' + ml;
+
+
     return today;
 }
 
@@ -43,8 +78,9 @@ function customUser(e) {
     formID.style.display = "none";
     chat.style.display = "block";
     usergenerated = inputID.value;
+    coloruser = randomColor();
     socket = openSockets();
-    
+
 }
 
 function randomUser() {
@@ -67,7 +103,7 @@ function isOpen(ws) {
 }
 
 function initSocket(e) {
-    info.innerHTML = `<p>Su id de usuario es: ${usergenerated} <p>`;
+    info.innerHTML = `<p>${usergenerated} ya puedes enviar mensajes!<p>`;
     socket.send(JSON.stringify({
         type: 'CNT',
         id_usuario: usergenerated,
@@ -88,6 +124,7 @@ function submitMsg(e) {
     socket.send(JSON.stringify({
         type: 'MSG',
         payload: value,
+        color: coloruser,
         id_usuario: usergenerated,
         time: getdateformat()
     }))

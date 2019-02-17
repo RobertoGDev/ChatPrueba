@@ -21,11 +21,11 @@ wsServer.on("connection", socket => {
 
         switch (msg.type) {
             case "CNT":
-                return wsServer.broadcast(`<p style="color:green"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha conectado`);
+                return wsServer.broadcast(`<div class="green-text text-darken-2"><small><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha conectado</small></div>`);
             case "DSC":
-                return wsServer.broadcast(`<p style="color:red"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha desconectado`);
+                return wsServer.broadcast(`<div class="red-text text-darken-2"><small><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha desconectado</small></div>`);
             case "MSG":
-                return wsServer.broadcast(`<p style="color:blue"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario} : </span>${msg.payload}<p>`);
+                return wsServer.broadcast(`<div class="card-panel p5 blue lighten-5" style="color:${msg.color}; padding: 5px"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario} : </span>${msg.payload}</div>`);
             default:
                 return console.log("NO EVENT MATCHING");
         }
