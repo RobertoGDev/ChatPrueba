@@ -37,6 +37,8 @@ const socket = new WebSocket('ws://localhost:3000');
 socket.addEventListener('open', initSocket);
 socket.addEventListener('message', onMessage);
 
+
+
 function initSocket(e) {
     info.innerHTML = `<p>Su id de usuario es: ${usergenerated} <p>`;
 }
@@ -54,7 +56,7 @@ function onMessage(e) {
 function submitMsg(e) {
     e.preventDefault();
     const value = inputMessage.value;
-
+ 
     if (!isOpen(socket)) return;
     
     socket.send(JSON.stringify({

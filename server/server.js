@@ -19,7 +19,7 @@ wsServer.on("connection", socket => {
 
     switch (msg.type) {
         case "CNT":
-        return wsServer.broadcast(`<p style="color:green"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha desconectado        `);
+        return wsServer.broadcast(`<p style="color:green"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha desconectado`);
       case "DSC":
         return wsServer.broadcast(`<p style="color:red"><span>${msg.time}</span> | <span style="font-weight:bold">${msg.id_usuario}</span> se ha desconectado`);
       case "MSG":
