@@ -1,4 +1,3 @@
-
 let usergenerated = randomUser();
 
 
@@ -10,6 +9,7 @@ const form = document.getElementById('form_msg');
 const socket = new WebSocket('ws://localhost:3000');
 socket.addEventListener('open', initSocket);
 socket.addEventListener('message', onMessage);
+socket.addEventListener('close', closeSocket);
 
 
 
@@ -17,14 +17,14 @@ function getdateformat() {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!
-    
+
     let yyyy = today.getFullYear();
     if (dd < 10) {
-      dd = '0' + dd;
-    } 
+        dd = '0' + dd;
+    }
     if (mm < 10) {
-      mm = '0' + mm;
-    } 
+        mm = '0' + mm;
+    }
     today = dd + '/' + mm + '/' + yyyy;
     return today;
 }
@@ -44,12 +44,17 @@ function randomUser() {
     return usergenerated;
 }
 
-function initSocket(e) {
-    info.innerHTML = `<p>Su id de usuario es: ${usergenerated} <p>`;
+function isOpen(ws) {
+    return ws.readyState === ws.OPEN
 }
 
-function isOpen(ws) { 
-    return ws.readyState === ws.OPEN 
+function initSocket(e) {
+    info.innerHTML = `<p>Su id de usuario es: ${usergenerated} <p>`;
+    socket.send(JSON.stringify({
+        type: 'CNT',
+        id_usuario: usergenerated,
+        time: getdateformat()
+    }))
 }
 
 function onMessage(e) {
@@ -59,9 +64,9 @@ function onMessage(e) {
 function submitMsg(e) {
     e.preventDefault();
     const value = inputMessage.value;
- 
+
     if (!isOpen(socket)) return;
-    
+
     socket.send(JSON.stringify({
         type: 'MSG',
         payload: value,
@@ -72,5 +77,13 @@ function submitMsg(e) {
     inputMessage.value = "";
 }
 
-  
+function closeSocket(e) {
+    socket.send(JSON.stringify({
+        type: 'DSC',
+        id_usuario: usergenerated,
+        time: getdateformat()
+    }))
+}
+
+
 form.addEventListener('submit', submitMsg);
