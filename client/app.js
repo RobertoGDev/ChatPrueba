@@ -1,17 +1,26 @@
-let usergenerated = randomUser();
+// let usergenerated = randomUser();
+let usergenerated = "";
+socket = []; 
+
+const selectId = document.getElementById('selectId');
+const formID = document.getElementById('form_getId');
+const inputID = document.getElementById('idUserCustom');
 
 
+const chat = document.getElementById('chat');
 const infopanel = document.getElementById('info');
 const panel = document.getElementById('messagepanel');
 const inputMessage = document.getElementById('message');
-const form = document.getElementById('form_msg');
-
-const socket = new WebSocket('ws://localhost:3000');
-socket.addEventListener('open', initSocket);
-socket.addEventListener('message', onMessage);
-socket.addEventListener('close', closeSocket);
+const formChat = document.getElementById('form_msg');
 
 
+function openSockets() {
+    const socket = new WebSocket('ws://localhost:3000');
+    socket.addEventListener('open', initSocket);
+    socket.addEventListener('message', onMessage);
+    socket.addEventListener('close', closeSocket);
+    return socket;
+}
 
 function getdateformat() {
     let today = new Date();
@@ -27,6 +36,15 @@ function getdateformat() {
     }
     today = dd + '/' + mm + '/' + yyyy;
     return today;
+}
+
+function customUser(e) {
+    e.preventDefault();
+    formID.style.display = "none";
+    chat.style.display = "block";
+    usergenerated = inputID.value;
+    socket = openSockets();
+    
 }
 
 function randomUser() {
@@ -85,5 +103,5 @@ function closeSocket(e) {
     }))
 }
 
-
-form.addEventListener('submit', submitMsg);
+formID.addEventListener('submit', customUser);
+formChat.addEventListener('submit', submitMsg);
