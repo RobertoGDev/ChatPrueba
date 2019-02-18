@@ -1,6 +1,6 @@
 const ws = require("ws");
 const wsServer = new ws.Server({
-    port: 3000
+    port: 3001
 });
 
 wsServer.broadcast = function broadcast(data) {
