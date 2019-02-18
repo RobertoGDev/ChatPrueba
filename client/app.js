@@ -39,7 +39,7 @@ function randomColor() {
 
 
 function openSockets() {
-    const socket = new WebSocket('ws://localhost:3000');
+    const socket = new WebSocket('ws://192.168.1.30:3000');
     socket.addEventListener('open', initSocket);
     socket.addEventListener('message', onMessage);
     socket.addEventListener('close', closeSocket);
