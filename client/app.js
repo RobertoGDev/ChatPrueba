@@ -1,6 +1,3 @@
-const http = require('http-server')
-
-
 // let usergenerated = randomUser();
 let usergenerated = "";
 let coloruser = "";
