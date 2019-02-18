@@ -106,6 +106,7 @@ function isOpen(ws) {
 }
 
 function initSocket(e) {
+    e.preventDefault();
     info.innerHTML = `<p>${usergenerated} ya puedes enviar mensajes!<p>`;
     socket.send(JSON.stringify({
         type: 'CNT',
