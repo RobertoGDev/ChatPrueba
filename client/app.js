@@ -134,6 +134,7 @@ function submitMsg(e) {
 }
 
 function closeSocket(e) {
+    e.preventDefault();
     socket.send(JSON.stringify({
         type: 'DSC',
         id_usuario: usergenerated,
