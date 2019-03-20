@@ -1,7 +1,11 @@
 const ws = require("ws");
 const wsServer = new ws.Server({
-    port: 3001
+    port: 3000
 });
+
+if(wsServer) {
+    console.log('running at port:3000')
+}
 
 wsServer.broadcast = function broadcast(data) {
     wsServer.clients.forEach(function each(client) {
