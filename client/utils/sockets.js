@@ -1,9 +1,9 @@
-import { getdateformat } from './functions.js';
+import { getdateformat, scrollToBottom } from './functions.js';
 
 export const openSockets = (usergenerated, infopanel, panel) => {
     const socket = new WebSocket('ws://localhost:3001');
     socket.addEventListener('open', (e) => initSocket(e, usergenerated, socket, infopanel));
-    socket.addEventListener('message', (e) => onMessage(e, panel));
+    socket.addEventListener('message', (e) => onMessage(e, panel, scrollToBottom));
     socket.addEventListener('close', (e) => closeSocket(e, usergenerated, socket));
     return socket;
 };
@@ -18,13 +18,15 @@ const initSocket = (e, usergenerated, socket, info) => {
 
 const onMessage = (e, panel) => {
     panel.innerHTML += e.data;
+    scrollToBottom(panel);
 };
 
-export const submitMsg = (e, socket, inputMessage, usergenerated, coloruser) => {
+export const submitMsg = (e, socket, scrollToBottom, panel, inputMessage, usergenerated, coloruser) => {
     e.preventDefault();
     const value = inputMessage.value;
     if (!isOpen(socket)) return;
     socket.send(JSON.stringify({ type: 'MSG', payload: value, color: coloruser, id_usuario: usergenerated, time: getdateformat() }));
+    socket.addEventListener('message', () => scrollToBottom(panel), { once: true });
     inputMessage.value = '';
 };
 
