@@ -5,7 +5,7 @@ socket = [];
 
 const selectId = document.getElementById('selectId');
 const formID = document.getElementById('form_getId');
-const inputID = document.getElementById('idUserCustom');
+const inputID = document.getElementById('userInput');
 const buttonUser = document.querySelector('#form_getId .btn');
 
 const chat = document.getElementById('chat');
@@ -15,7 +15,7 @@ const inputMessage = document.getElementById('message');
 const formChat = document.getElementById('form_msg');
 
 
-inputID.addEventListener('change', function () {
+inputID.addEventListener('input', function () {
     console.log(typeof this.value);
     if (this.value == '') {
         buttonUser.classList.add('disabled');
@@ -36,7 +36,7 @@ function randomColor() {
 
 
 function openSockets() {
-    const socket = new WebSocket('ws://robertogdev.ddns.net:3001');
+    const socket = new WebSocket('ws://localhost:3001');
     socket.addEventListener('open', initSocket);
     socket.addEventListener('message', onMessage);
     socket.addEventListener('close', closeSocket);
