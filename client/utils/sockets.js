@@ -20,11 +20,12 @@ const onMessage = (e, panel) => {
     panel.innerHTML += e.data;
 };
 
-export const submitMsg = (e, socket, inputMessage, usergenerated, coloruser) => {
+export const submitMsg = (e, socket, scrollToBottom, panel, inputMessage, usergenerated, coloruser) => {
     e.preventDefault();
     const value = inputMessage.value;
     if (!isOpen(socket)) return;
     socket.send(JSON.stringify({ type: 'MSG', payload: value, color: coloruser, id_usuario: usergenerated, time: getdateformat() }));
+    socket.addEventListener('message', () => scrollToBottom(panel), { once: true });
     inputMessage.value = '';
 };
 

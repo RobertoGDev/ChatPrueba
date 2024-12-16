@@ -12,6 +12,11 @@ export const randomUser = (usergenerated) => {
         charsD.charAt(Math.floor(Math.random() * charsD.length));
 };
 
+export const scrollToBottom = (panel) => {
+    panel.scrollTop = panel.scrollHeight;
+};
+
+
 export const randomColor = () => {
     const letters = '0123456789ABCDEF';
     return '#' + Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join('');

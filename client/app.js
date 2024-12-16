@@ -1,4 +1,4 @@
-import { randomColor } from './utils/functions.js';
+import { randomColor, scrollToBottom } from './utils/functions.js';
 import { openSockets, submitMsg } from './utils/sockets.js';
 
 let usergenerated = '';
@@ -28,4 +28,4 @@ const customUser = (e) => {
 };
 
 formID.addEventListener('submit', customUser);
-formChat.addEventListener('submit', (e) => submitMsg(e, socket, inputMessage, usergenerated, coloruser));
+formChat.addEventListener('submit', (e) => submitMsg(e, socket, scrollToBottom, panel, inputMessage, usergenerated, coloruser));
